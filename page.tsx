@@ -1,22 +1,32 @@
 import Link from "next/link";
+
 import { getFeaturedProjects } from "@/data/projects";
 import { createTranslator } from "@/lib/i18n/messages";
 import { getLocale } from "@/lib/i18n/locale";
-import { cardGrid, container, heroInner, sectionX } from "@/lib/site-layout";
-import { BackToTop } from "./components/back-to-top";
-import { ExperienceSection } from "./components/experience-section";
-import { ManifestoSection } from "./components/manifesto-section";
-import { ValueSection } from "./components/value-section";
-import { FocusPillarCards } from "./components/focus-pillar-cards";
-import { FlyingBirds } from "./components/flying-birds";
-import { HeroBubbles } from "./components/hero-bubbles";
-import { HeroContent } from "./components/hero-content";
-import { HeroScrollCue } from "./components/hero-scroll-cue";
-import { PhotoStack } from "./components/photo-stack";
-import { ProjectCard } from "./components/project-card";
-import { SectionReveal } from "./components/section-reveal";
-import { StaggerItem, StaggerReveal } from "./components/stagger-reveal";
-import { SiteNav } from "./components/site-nav";
+import {
+  cardGrid,
+  container,
+  heroInner,
+  sectionX,
+} from "@/lib/site-layout";
+
+import { BackToTop } from "./app/components/back-to-top";
+import { ExperienceSection } from "./app/components/experience-section";
+import { ManifestoSection } from "./app/components/manifesto-section";
+import { ValueSection } from "./app/components/value-section";
+import { FocusPillarCards } from "./app/components/focus-pillar-cards";
+import { FlyingBirds } from "./app/components/flying-birds";
+import { HeroBubbles } from "./app/components/hero-bubbles";
+import { HeroContent } from "./app/components/hero-content";
+import { HeroScrollCue } from "./app/components/hero-scroll-cue";
+import { PhotoStack } from "./app/components/photo-stack";
+import { ProjectCard } from "./app/components/project-card";
+import { SectionReveal } from "./app/components/section-reveal";
+import {
+  StaggerItem,
+  StaggerReveal,
+} from "./app/components/stagger-reveal";
+import { SiteNav } from "./app/components/site-nav";
 
 const photos = [
   "/images/about-1.jpg",
@@ -33,14 +43,23 @@ export default async function Home() {
   const featuredProjects = getFeaturedProjects(locale);
 
   return (
-    <div id="top" className="relative flex min-h-full flex-col overflow-x-clip bg-[#fffdf8]">
+    <div
+      id="top"
+      className="relative flex min-h-full flex-col overflow-x-clip bg-[#fffdf8]"
+    >
       <SiteNav />
 
       <main className="relative z-10 flex flex-1 flex-col overflow-x-clip">
-        <section className={`relative hero-sky flex min-h-[92vh] flex-col justify-center overflow-x-clip pb-28 pt-36 md:pb-32 ${sectionX}`}>
+        <section
+          className={`relative hero-sky flex min-h-[92vh] flex-col justify-center overflow-x-clip pb-28 pt-36 md:pb-32 ${sectionX}`}
+        >
           <HeroBubbles />
           <FlyingBirds />
-          <HeroContent className={`relative flex flex-col items-center text-center ${heroInner}`} />
+
+          <HeroContent
+            className={`relative flex flex-col items-center text-center ${heroInner}`}
+          />
+
           <HeroScrollCue />
         </section>
 
@@ -55,20 +74,29 @@ export default async function Home() {
                   <p className="text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-[#8b7355]">
                     {t("work.eyebrow")}
                   </p>
+
                   <h2 className="mt-3 font-serif text-4xl font-medium tracking-tight text-[#2a2622] md:text-5xl">
                     {t("work.title")}
                   </h2>
                 </div>
+
                 <p className="max-w-md text-sm leading-relaxed text-[#6f6760] md:max-w-lg lg:max-w-xl">
                   {t("work.description")}
                 </p>
               </div>
             </SectionReveal>
 
-            <StaggerReveal className={cardGrid} stagger={0.12} delayChildren={0.04}>
+            <StaggerReveal
+              className={cardGrid}
+              stagger={0.12}
+              delayChildren={0.04}
+            >
               {featuredProjects.map((project, index) => (
                 <StaggerItem key={project.slug}>
-                  <ProjectCard project={project} priority={index === 0} />
+                  <ProjectCard
+                    project={project}
+                    priority={index === 0}
+                  />
                 </StaggerItem>
               ))}
             </StaggerReveal>
@@ -88,17 +116,25 @@ export default async function Home() {
           </div>
         </section>
 
-        <section id="about" className={`scroll-mt-28 overflow-x-clip bg-[#fffdf8] py-28 ${sectionX}`}>
-          <SectionReveal className={`grid ${container} gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-20 lg:items-start`}>
+        <section
+          id="about"
+          className={`scroll-mt-28 overflow-x-clip bg-[#fffdf8] py-28 ${sectionX}`}
+        >
+          <SectionReveal
+            className={`grid ${container} gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-20 lg:items-start`}
+          >
             <div className="min-w-0">
               <p className="text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-[#8b7355]">
                 {t("about.eyebrow")}
               </p>
+
               <h3 className="mt-4 font-serif text-4xl font-medium tracking-tight text-[#2a2622] md:text-5xl">
                 {t("about.quote")}
               </h3>
+
               <PhotoStack photos={photos} />
             </div>
+
             <div className="space-y-8 rounded-[2rem] border border-[#ebe3d7] bg-[#fffdf8]/70 p-10 shadow-[0_24px_80px_-48px_rgba(42,38,34,0.35)] backdrop-blur-sm md:p-12">
               <p className="whitespace-pre-line text-lg leading-[1.75] text-[#4a433c]">
                 {t("about.body")}
@@ -107,7 +143,9 @@ export default async function Home() {
               <p className="font-serif text-xl italic text-[#3d3835]">
                 {t("about.signature")}
                 <br />
-                <span className="not-italic font-semibold tracking-tight">{t("about.role")}</span>
+                <span className="not-italic font-semibold tracking-tight">
+                  {t("about.role")}
+                </span>
               </p>
             </div>
           </SectionReveal>
@@ -119,17 +157,24 @@ export default async function Home() {
 
         <ManifestoSection />
 
-        <footer id="contact" className={`scroll-mt-28 mt-auto border-t border-[#e8dfd4]/90 bg-[#fffdf8] py-20 ${sectionX}`}>
+        <footer
+          id="contact"
+          className={`scroll-mt-28 mt-auto border-t border-[#e8dfd4]/90 bg-[#fffdf8] py-20 ${sectionX}`}
+        >
           <SectionReveal>
-            <div className={`flex ${container} flex-col gap-10 md:flex-row md:items-end md:justify-between`}>
+            <div
+              className={`flex ${container} flex-col gap-10 md:flex-row md:items-end md:justify-between`}
+            >
               <div>
                 <p className="text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-[#8b7355]">
                   {t("contact.eyebrow")}
                 </p>
+
                 <p className="mt-4 max-w-md text-sm leading-relaxed text-[#6f6760]">
                   {t("contact.description")}
                 </p>
               </div>
+
               <div className="flex flex-col gap-4 md:items-end">
                 <a
                   href="mailto:asd46639@gmail.com"
@@ -137,12 +182,16 @@ export default async function Home() {
                 >
                   asd46639@gmail.com
                 </a>
+
                 <p className="text-[0.65rem] uppercase tracking-[0.22em] text-[#a89888]">
                   {t("contact.location")}
                 </p>
               </div>
             </div>
-            <div className={`${container} mt-16 border-t border-[#efe8df]/90 pt-8 text-[0.65rem] tracking-[0.18em] text-[#b0a499]`}>
+
+            <div
+              className={`${container} mt-16 border-t border-[#efe8df]/90 pt-8 text-[0.65rem] tracking-[0.18em] text-[#b0a499]`}
+            >
               © {new Date().getFullYear()} {t("contact.copyright")}
             </div>
           </SectionReveal>
