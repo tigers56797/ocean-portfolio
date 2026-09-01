@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none" role="img" aria-label="Ocean Ou">
+  <defs>
+    <linearGradient id="og" x1="18%" y1="12%" x2="88%" y2="92%">
+      <stop stop-color="#e8f0f8"/>
+      <stop offset="0.45" stop-color="#c9dde8"/>
+      <stop offset="1" stop-color="#7eb8e8"/>
+    </linearGradient>
+  </defs>
+  <circle cx="40" cy="40" r="40" fill="url(#og)"/>
+  <circle cx="40" cy="40" r="36" stroke="rgba(30,58,80,0.12)" stroke-width="1"/>
+  <text
+    x="40"
+    y="46"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="26"
+    font-weight="600"
+    fill="#1e3a50"
+    letter-spacing="-0.02em"
+  >O</text>
+</svg>
