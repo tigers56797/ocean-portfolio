@@ -79,19 +79,25 @@ export const projects: Project[] = [
         blocks: [
           {
             type: "image",
-            src: "/images/kodo/kodoux.png",
-            alt: "Kodo 動 — UX overview",
-            caption: "Kodo Projects",
-          },
-          {
-            type: "image",
             src: "/images/kodo/c6.png",
             alt: "Kodo 動 — UX overview",
             caption: "Kodo Projects",
           },
           {
             type: "image",
+            src: "/images/kodo/kodo persona.png",
+            alt: "Kodo 動 — Persona",
+            caption: "Kodo Projects",
+          },
+          {
+            type: "image",
             src: "/images/kodo/c7.png",
+            alt: "Kodo 動 — UX overview",
+            caption: "Kodo Projects",
+          },
+          {
+            type: "image",
+            src: "/images/kodo/kodoux.png",
             alt: "Kodo 動 — UX overview",
             caption: "Kodo Projects",
           },
