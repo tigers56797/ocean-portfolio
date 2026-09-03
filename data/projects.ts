@@ -79,25 +79,13 @@ export const projects: Project[] = [
         blocks: [
           {
             type: "image",
-            src: "/images/kodo/c6.png",
-            alt: "Kodo 動 — UX overview",
-            caption: "Kodo Projects",
-          },
-          {
-            type: "image",
-            src: "/images/kodo/kodo persona.png",
-            alt: "Kodo 動 — Persona",
+            src: "/images/kodo/introduce-kodo.png",
+            alt: "Kodo 動 — 介紹",
             caption: "Kodo Projects",
           },
           {
             type: "image",
             src: "/images/kodo/c7.png",
-            alt: "Kodo 動 — UX overview",
-            caption: "Kodo Projects",
-          },
-          {
-            type: "image",
-            src: "/images/kodo/kodoux.png",
             alt: "Kodo 動 — UX overview",
             caption: "Kodo Projects",
           },
@@ -125,6 +113,48 @@ export const projects: Project[] = [
             alt: "Kodo 動 — UX overview",
             caption: "Kodo Projects",
           },
+          {
+            type: "image",
+            src: "/images/kodo/kodoux.png",
+            alt: "Kodo 動 — UX overview",
+            caption: "Kodo Projects",
+          },
+          {
+            type: "image",
+            src: "/images/kodo/kodo persona.png",
+            alt: "Kodo 動 — Persona",
+            caption: "Kodo Projects",
+          },
+          {
+            type: "image",
+            src: "/images/kodo/kodo異常狀態功能地圖.png",
+            alt: "Kodo 動 — 異常狀態功能地圖",
+            caption: "Kodo Projects",
+          },
+          {
+            type: "image",
+            src: "/images/kodo/kodo mixpanel.png",
+            alt: "Kodo 動 — Mixpanel",
+            caption: "Kodo Projects",
+          },
+          {
+            type: "image",
+            src: "/images/kodo/kodo sql.png",
+            alt: "Kodo 動 — SQL",
+            caption: "Kodo Projects",
+          },
+          {
+            type: "image",
+            src: "/images/kodo/kodo statistic conclusion.png",
+            alt: "Kodo 動 — Statistic Conclusion",
+            caption: "Kodo Projects",
+          },
+          {
+            type: "image",
+            src: "/images/kodo/FunctionalMap.png",
+            alt: "Kodo 動 — UX overview",
+            caption: "Kodo Projects",
+          },
           
         ],
       },
@@ -134,7 +164,7 @@ export const projects: Project[] = [
         blocks: [
           {
             type: "image",
-            src: "/images/kodo/FunctionalMap.png",
+            src: "/images/kodo/kodo guideline.png",
             alt: "Kodo 動 — UI screens",
             caption: "Kodo Projects",
           },

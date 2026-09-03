@@ -18,6 +18,8 @@ import { ProjectCard } from "./components/project-card";
 import { SectionReveal } from "./components/section-reveal";
 import { StaggerItem, StaggerReveal } from "./components/stagger-reveal";
 import { SiteNav } from "./components/site-nav";
+import { AboutCard } from "./components/about-card";
+import { AboutFireworks } from "./components/about-fireworks";
 
 const photos = [
   "/images/about-1.jpg",
@@ -46,7 +48,8 @@ export default async function Home() {
           <HeroScrollCue />
         </section>
 
-        <section id="about" className={`scroll-mt-28 overflow-x-clip bg-[#fffdf8] py-28 ${sectionX}`}>
+        <section id="about" className={`relative scroll-mt-28 overflow-x-clip bg-[#fffdf8] py-28 ${sectionX}`}>
+          <AboutFireworks />
           <SectionReveal className={`grid ${container} gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-20 lg:items-start`}>
             <div className="min-w-0">
               <p className="text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-[#8b7355]">
@@ -55,29 +58,11 @@ export default async function Home() {
               <AboutQuote line1={t("about.quoteLine1")} line2={t("about.quoteLine2")} />
               <PhotoStack photos={photos} />
             </div>
-            <div className="space-y-8 rounded-[2rem] border border-[#ebe3d7] bg-[#fffdf8]/70 p-10 shadow-[0_24px_80px_-48px_rgba(42,38,34,0.35)] backdrop-blur-sm md:p-12">
-              <div className="space-y-6 text-lg leading-[1.75] text-[#4a433c]">
-                {aboutParagraphs.map((paragraph, paragraphIndex) => (
-                  <p key={paragraphIndex}>
-                    {paragraph.map((part, partIndex) =>
-                      "highlight" in part && part.highlight ? (
-                        <span key={partIndex} className="about-quote-highlight">
-                          {part.text}
-                        </span>
-                      ) : (
-                        <span key={partIndex}>{part.text}</span>
-                      ),
-                    )}
-                  </p>
-                ))}
-              </div>
-
-              <p className="font-serif text-xl italic text-[#3d3835]">
-                {t("about.signature")}
-                <br />
-                <span className="not-italic font-semibold tracking-tight">{t("about.role")}</span>
-              </p>
-            </div>
+            <AboutCard
+              paragraphs={aboutParagraphs}
+              signature={t("about.signature")}
+              role={t("about.role")}
+            />
           </SectionReveal>
         </section>
 
