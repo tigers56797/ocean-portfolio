@@ -6,11 +6,11 @@ import { useRef, useState, useEffect } from "react";
 const ease = [0.16, 1, 0.3, 1] as const;
 const springEase = [0.34, 1.56, 0.64, 1] as const;
 
-type TextPart = { text: string; highlight?: boolean };
-type Paragraph = TextPart[];
+type TextPart = { readonly text: string; readonly highlight?: boolean };
+type Paragraph = readonly TextPart[];
 
 type AboutCardProps = {
-  paragraphs: Paragraph[];
+  paragraphs: readonly Paragraph[];
   signature: string;
   role: string;
 };
@@ -18,7 +18,7 @@ type AboutCardProps = {
 // 把所有段落拍平成「token」陣列，每個 token 知道自己屬於哪段、是否 highlight
 type Token = { char: string; highlight: boolean; paraIndex: number; partIndex: number };
 
-function buildTokens(paragraphs: Paragraph[]): Token[] {
+function buildTokens(paragraphs: readonly Paragraph[]): Token[] {
   const tokens: Token[] = [];
   paragraphs.forEach((para, pi) => {
     para.forEach((part, ki) => {
