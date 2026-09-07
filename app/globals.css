@@ -1926,7 +1926,126 @@ body {
   }
 }
 
+@keyframes product-hero-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0);
+  }
+}
+
+.product-hero-float {
+  animation: product-hero-float 5.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+.product-hero-mascot {
+  will-change: transform;
+  animation: product-hero-float 6.6s ease-in-out infinite;
+}
+
+.product-hero-mascot--flower {
+  animation: product-hero-float 6.8s ease-in-out infinite;
+  animation-delay: -0.6s;
+}
+
+.product-hero-mascot--branch {
+  animation: product-hero-float 7.4s ease-in-out infinite;
+  animation-delay: -2.2s;
+}
+
+.product-hero-headline {
+  position: relative;
+}
+
+.product-hero-highlight {
+  display: inline;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    transparent 58%,
+    rgba(120, 185, 255, 0.55) 58%,
+    rgba(90, 168, 250, 0.62) 92%,
+    transparent 92%
+  );
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0 0.06em;
+}
+
+/* Shimmer clipped strictly to glyph shapes */
+.product-hero-shimmer-text {
+  display: inline;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(
+    100deg,
+    #121816 0%,
+    #121816 38%,
+    #f4f9ff 48%,
+    #9fd0ff 50%,
+    #f4f9ff 52%,
+    #121816 62%,
+    #121816 100%
+  );
+  background-size: 240% 100%;
+  background-position: 100% 50%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: product-hero-text-shimmer 7.2s cubic-bezier(0.42, 0, 0.18, 1) infinite;
+  animation-delay: 1.2s;
+}
+
+.product-hero-shimmer-text--green {
+  background-image: linear-gradient(
+    100deg,
+    #1f4d3a 0%,
+    #1f4d3a 38%,
+    #e8fff2 48%,
+    #7dcca8 50%,
+    #e8fff2 52%,
+    #1f4d3a 62%,
+    #1f4d3a 100%
+  );
+}
+
+@keyframes product-hero-text-shimmer {
+  0%,
+  14% {
+    background-position: 100% 50%;
+  }
+  30% {
+    background-position: 0% 50%;
+  }
+  30.01%,
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .product-hero-float,
+  .product-hero-mascot,
+  .product-hero-mascot--flower,
+  .product-hero-mascot--branch {
+    animation: none;
+  }
+
+  .product-hero-shimmer-text {
+    animation: none;
+    background-image: none;
+    color: #121816;
+    -webkit-text-fill-color: #121816;
+  }
+
+  .product-hero-shimmer-text--green {
+    color: #1f4d3a;
+    -webkit-text-fill-color: #1f4d3a;
+  }
+
   .experience-year,
   .experience-timeline-line {
     animation: none;

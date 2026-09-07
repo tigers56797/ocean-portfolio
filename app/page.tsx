@@ -20,6 +20,7 @@ import { StaggerItem, StaggerReveal } from "./components/stagger-reveal";
 import { SiteNav } from "./components/site-nav";
 import { AboutCard } from "./components/about-card";
 import { AboutFireworks } from "./components/about-fireworks";
+import { AboutInsightCards } from "./components/about-insight-cards";
 
 const photos = [
   "/images/about-1.jpg",
@@ -35,6 +36,7 @@ export default async function Home() {
   const t = createTranslator(locale);
   const featuredProjects = getFeaturedProjects(locale);
   const aboutParagraphs = messages[locale].about.bodyParagraphs;
+  const aboutInsights = messages[locale].about.insights;
 
   return (
     <div id="top" className="relative flex min-h-full flex-col overflow-x-clip bg-[#fffdf8]">
@@ -58,11 +60,14 @@ export default async function Home() {
               <AboutQuote line1={t("about.quoteLine1")} line2={t("about.quoteLine2")} />
               <PhotoStack photos={photos} />
             </div>
-            <AboutCard
-              paragraphs={aboutParagraphs}
-              signature={t("about.signature")}
-              role={t("about.role")}
-            />
+            <div className="min-w-0 space-y-0">
+              <AboutCard
+                paragraphs={aboutParagraphs}
+                signature={t("about.signature")}
+                role={t("about.role")}
+              />
+              <AboutInsightCards items={aboutInsights} />
+            </div>
           </SectionReveal>
         </section>
 

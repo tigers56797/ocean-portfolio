@@ -8,6 +8,7 @@ export type ExperienceStackItem = {
   company: string;
   period: string;
   description: string;
+  tag?: string;
 };
 
 const SWIPE_THRESHOLD_PX = 72;
@@ -287,7 +288,12 @@ export function ExperienceStack({ items }: ExperienceStackProps) {
                   isFront ? "p-6 md:p-8" : "p-5 md:p-6 hover:border-[#d4c8b8] hover:shadow-[0_20px_56px_-32px_rgba(42,38,34,0.2)]"
                 }`}
               >
-                <p className="text-[0.65rem] font-semibold uppercase tracking-[0.26em] text-[#a89888]">
+                {item.tag ? (
+                  <span className="absolute right-4 top-4 rounded-full border border-[#ddd4c8] bg-[#faf6f0]/95 px-2.5 py-1 text-[0.58rem] font-semibold tracking-[0.12em] text-[#6f6760] md:right-5 md:top-5 md:px-3 md:text-[0.6rem]">
+                    {item.tag}
+                  </span>
+                ) : null}
+                <p className="pr-16 text-[0.65rem] font-semibold uppercase tracking-[0.26em] text-[#a89888] md:pr-20">
                   {String(expIndex + 1).padStart(2, "0")}
                 </p>
                 <h3

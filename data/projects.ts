@@ -39,6 +39,23 @@ export type Project = {
   /** Optional link shown beside gallery tabs (e.g. product landing page). */
   exploreUrl?: string;
   exploreLabel?: string;
+  /**
+   * Product-style split hero (text left / visual right).
+   * Falls back to the default stacked title layout when omitted.
+   */
+  heroLayout?: "default" | "product";
+  /** Right-side visual for product hero (e.g. phone mockups). */
+  heroVisual?: string;
+  /** Large product headline; falls back to `title` when omitted. */
+  heroHeadline?: string;
+  /** Small version / status pill next to the product name. */
+  heroBadge?: string;
+  /** Tiny caption under CTAs (platforms, availability, etc.). */
+  heroSupportNote?: string;
+  /** Primary CTA in product hero; falls back to exploreUrl. */
+  heroPrimaryCta?: ProjectCta;
+  /** Secondary CTA in product hero. */
+  heroSecondaryCta?: ProjectCta;
   content: ContentBlock[];
 };
 
@@ -63,15 +80,26 @@ export const projects: Project[] = [
     meta: "Operational System · Ongoing",
     title: "Kodo",
     description:
-      "An action-oriented anomaly handling system designed for high-pressure engineering environments, helping teams make decisions and respond quickly.",
+      "Kodo is an action-oriented anomaly handling tool for engineering teams — see status clearly, take the next step, and get stuck problems moving again.",
     tag: "In production",
     cardImage: "/images/kodo/maincover2.png",
     tagStyle: "bg-[#e8f0e8] text-[#3d5c3d]",
     frame: "from-[#eef4fb] via-[#f5efe8] to-[#ebe3d7]",
     ctaUrl: "https://www.figma.com/proto/nCNYgTe4ToqNBNj1ieR09o/Kodo-%E5%8B%95?page-id=0%3A1&node-id=132-2015&p=f&viewport=3746%2C-6802%2C0.66&t=2LpxXALoJ6Rek1xc-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=132%3A2015&show-proto-sidebar=1",
     ctaLabel: "Prototype",
-    exploreUrl: "https://oreory-studio.vercel.app/kodo",
-    exploreLabel: "Explore Kodo",
+    heroLayout: "product",
+    heroVisual: "/images/kodo/UI Intro3-transparent.png",
+    heroHeadline: "Let problems\nstart moving.",
+    heroBadge: "v1.4.0 now available",
+    heroSupportNote: "A real product case covering product thinking, design decisions, and delivery",
+    heroPrimaryCta: {
+      label: "Explore Kodo",
+      href: "https://oreory-studio.vercel.app/kodo",
+    },
+    heroSecondaryCta: {
+      label: "Web demo",
+      href: "https://kodo-phi.vercel.app/",
+    },
     galleryViews: [
       {
         id: "ux",
@@ -170,37 +198,37 @@ export const projects: Project[] = [
           },
           {
             type: "image",
-            src: "/images/kodo/首頁.png",
+            src: "/images/kodo/新首頁.png",
             alt: "Kodo 動 — 首頁",
             caption: "首頁",
           },
           {
             type: "image",
-            src: "/images/kodo/專案.png",
+            src: "/images/kodo/新專案.png",
             alt: "Kodo 動 — 專案",
             caption: "專案",
           },
           {
             type: "image",
-            src: "/images/kodo/專案詳細.png",
+            src: "/images/kodo/新專案詳細.png",
             alt: "Kodo 動 — 專案詳細",
             caption: "專案詳細",
           },
           {
             type: "image",
-            src: "/images/kodo/專注.png",
+            src: "/images/kodo/新專注.png",
             alt: "Kodo 動 — 專注",
             caption: "專注",
           },
           {
             type: "image",
-            src: "/images/kodo/專注詳細.png",
+            src: "/images/kodo/新專注詳細.png",
             alt: "Kodo 動 — 專注詳細",
             caption: "專注詳細",
           },
           {
             type: "image",
-            src: "/images/kodo/成長.png",
+            src: "/images/kodo/新成長.png",
             alt: "Kodo 動 — 成長",
             caption: "成長",
           },
@@ -213,12 +241,6 @@ export const projects: Project[] = [
           {
             type: "image",
             src: "/images/kodo/UI Intro2.png",
-            alt: "Kodo 動 — UX overview",
-            caption: "Kodo Projects",
-          },
-          {
-            type: "image",
-            src: "/images/kodo/UI Intro3.png",
             alt: "Kodo 動 — UX overview",
             caption: "Kodo Projects",
           },

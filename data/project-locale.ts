@@ -5,6 +5,11 @@ type ProjectLocaleFields = Pick<Project, "meta" | "title" | "description" | "tag
   ctaLabel?: string;
   exploreLabel?: string;
   ctas?: ProjectCta[];
+  heroHeadline?: string;
+  heroBadge?: string;
+  heroSupportNote?: string;
+  heroPrimaryCta?: ProjectCta;
+  heroSecondaryCta?: ProjectCta;
 };
 
 const zhProjects: Record<string, ProjectLocaleFields> = {
@@ -12,10 +17,20 @@ const zhProjects: Record<string, ProjectLocaleFields> = {
     meta: "營運系統 · 進行中",
     title: "Kodo 動",
     description:
-      "為高壓工程環境設計的行動導向異常處理系統，協助團隊快速決策與回應。",
+      "Kodo 是為工程團隊打造的行動導向異常處理工具，幫助你快速掌握狀態、採取下一步，讓卡住的問題重新開始前進。",
     tag: "已上線",
     ctaLabel: "原型",
-    exploreLabel: "探索 Kodo",
+    heroHeadline: "讓問題\n開始前進。",
+    heroBadge: "v1.4.0 現已推出",
+    heroSupportNote: "以實際產品案例呈現產品思考、設計決策與落地過程",
+    heroPrimaryCta: {
+      label: "探索 Kodo",
+      href: "https://oreory-studio.vercel.app/kodo",
+    },
+    heroSecondaryCta: {
+      label: "Web 版本測試",
+      href: "https://kodo-phi.vercel.app/",
+    },
   },
   Tripow: {
     meta: "旅遊平台 · 社交探索",
@@ -59,5 +74,7 @@ export function localizeProject(project: Project, locale: Locale): Project {
     ...overlay,
     ctas: overlay.ctas ?? project.ctas,
     ctaLabel: overlay.ctaLabel ?? project.ctaLabel,
+    heroPrimaryCta: overlay.heroPrimaryCta ?? project.heroPrimaryCta,
+    heroSecondaryCta: overlay.heroSecondaryCta ?? project.heroSecondaryCta,
   };
 }

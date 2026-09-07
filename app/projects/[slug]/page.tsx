@@ -54,7 +54,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <ProjectHero project={project} />
 
             {project.galleryViews && project.galleryViews.length > 0 ? (
-              <div className="mt-16 md:mt-20">
+              <div id="gallery" className="mt-16 scroll-mt-28 md:mt-20">
                 <ProjectGallerySwitcher
                   views={project.galleryViews}
                   frame={project.frame}
@@ -63,7 +63,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 />
               </div>
             ) : project.content.length > 0 ? (
-              <div className="mt-16 md:mt-20">
+              <div id="gallery" className="mt-16 scroll-mt-28 md:mt-20">
                 <ProjectContent blocks={project.content} frame={project.frame} />
               </div>
             ) : null}

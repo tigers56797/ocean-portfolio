@@ -60,6 +60,26 @@ const en = {
     tactileFeedback: "tactile feedback",
     signature: "Ocean Ou,",
     role: "UI/UX Designer · Product Designer",
+    insights: [
+      {
+        label: "Clear communication",
+        metric: "2.4×",
+        metricNote: "Faster alignment cycles",
+        quote:
+          "Translate complexity into shared language so product, design, and engineering move together.",
+        bars: [0.35, 0.48, 0.42, 0.58, 0.62, 0.7, 0.78, 0.92],
+        tone: "sand" as const,
+      },
+      {
+        label: "Business × experience",
+        metric: "98%",
+        metricNote: "Goal–experience fit",
+        quote:
+          "Keep business goals and precise experience design in one loop — clarity that ships.",
+        bars: [0.4, 0.55, 0.5, 0.68, 0.72, 0.8, 0.86, 0.95],
+        tone: "sage" as const,
+      },
+    ],
   },
   experience: {
     eyebrow: "Experience",
@@ -71,6 +91,7 @@ const en = {
         title: "UI/UX Designer",
         company: "Wistron ITS @ TSMC",
         period: "2025 - Present",
+        tag: "Semiconductor",
         description:
           "Designing semiconductor internal systems, operational workflows, and high-density enterprise interfaces with cross-functional collaboration.",
       },
@@ -78,6 +99,7 @@ const en = {
         title: "Product Designer",
         company: "Aimendofor",
         period: "2023 - 2025",
+        tag: "Startup",
         description:
           "Led product restructuring, information architecture redesign, and collaborated closely with engineering and product planning.",
       },
@@ -85,6 +107,7 @@ const en = {
         title: "UI/UX Designer",
         company: "Sampras.hk",
         period: "2023",
+        tag: "Enterprise clients",
         description:
           "Worked on client website projects, visual interfaces, and branding-oriented digital experiences.",
       },
@@ -230,6 +253,24 @@ const zh = {
     tactileFeedback: "具體回饋",
     signature: "Ocean Ou，",
     role: "UI/UX 設計師 · 產品設計師",
+    insights: [
+      {
+        label: "高效溝通",
+        metric: "2.4×",
+        metricNote: "對齊節奏更快",
+        quote: "把複雜問題轉成共同語言，讓產品、設計與工程能同頻推進。",
+        bars: [0.35, 0.48, 0.42, 0.58, 0.62, 0.7, 0.78, 0.92],
+        tone: "sand" as const,
+      },
+      {
+        label: "商業目標 × 精準體驗",
+        metric: "98%",
+        metricNote: "目標與體驗貼合",
+        quote: "把商業目標與精準體驗整合在同一迴路，做出清晰且可落地的設計決策。",
+        bars: [0.4, 0.55, 0.5, 0.68, 0.72, 0.8, 0.86, 0.95],
+        tone: "sage" as const,
+      },
+    ],
   },
   experience: {
     eyebrow: "經歷",
@@ -240,18 +281,21 @@ const zh = {
         title: "UI/UX 設計師",
         company: "Wistron ITS @ TSMC",
         period: "2025 - 至今",
+        tag: "半導體",
         description: "設計半導體內部系統、營運工作流與高密度企業介面，並與跨職能團隊協作。",
       },
       {
         title: "產品設計師",
         company: "Aimendofor",
         period: "2023 - 2025",
+        tag: "新創",
         description: "主導產品重構、資訊架構重新設計，並與工程與產品規劃團隊緊密合作。",
       },
       {
         title: "UI/UX 設計師",
         company: "Sampras.hk",
         period: "2023",
+        tag: "外商接案企業",
         description: "參與客戶網站專案、視覺介面與品牌導向的數位體驗設計。",
       },
     ],
