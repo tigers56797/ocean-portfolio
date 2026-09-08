@@ -45,8 +45,10 @@ const en = {
         { text: "With a background in " },
         { text: "UI/UX and product design", highlight: true },
         {
-          text: ", I approach design beyond interfaces — thinking about how products work, how people use them, and how they create value for the business.",
+          text: ", I approach design beyond interfaces — thinking about how products work, how people use them, how decisions follow ",
         },
+        { text: "real data analysis", highlight: true },
+        { text: ", and how they create value for the business." },
       ],
       [
         { text: "My experience spans " },
@@ -62,11 +64,11 @@ const en = {
     role: "UI/UX Designer · Product Designer",
     insights: [
       {
-        label: "Clear communication",
+        label: "Clear communication × real data",
         metric: "2.4×",
         metricNote: "Faster alignment cycles",
         quote:
-          "Translate complexity into shared language so product, design, and engineering move together.",
+          "Turn complexity into shared language backed by real data analysis — so product, design, and engineering move in sync.",
         bars: [0.35, 0.48, 0.42, 0.58, 0.62, 0.7, 0.78, 0.92],
         tone: "sand" as const,
       },
@@ -115,7 +117,7 @@ const en = {
   },
   value: {
     eyebrow: "Value",
-    title: "Strengths at the intersection",
+    title: "My strengths",
     description:
       "Where human context, design craft, and product execution overlap — the work stays calm, clear, and buildable.",
     hint: "Move into the center overlap to reveal the intersection",
@@ -147,12 +149,12 @@ const en = {
       },
       {
         id: "execution" as const,
-        shortLabel: "PRODUCT",
-        title: "Execution & Product Insight",
+        shortLabel: "BUSINESS",
+        title: "Execution & Business Insight",
         points: [
-          "Product thinking from problem to ship",
-          "Workflow optimization that scales",
-          "Turning complexity into clear experiences",
+          "Data-led decisions from problem to ship",
+          "Business-oriented workflow optimization",
+          "Turning complex data into clear product action",
         ],
       },
     ],
@@ -238,8 +240,10 @@ const zh = {
         { text: "我具備 " },
         { text: "UI/UX 與產品設計", highlight: true },
         {
-          text: "背景，不只關注介面本身，也思考產品如何運作、使用者如何使用，以及如何為產品與商業創造價值。",
+          text: "背景，不只關注介面本身，也思考產品如何運作、使用者如何使用，如何",
         },
+        { text: "根據實際數據分析判斷", highlight: true },
+        { text: "，以及如何為產品與商業創造價值。" },
       ],
       [
         { text: "我的經驗涵蓋 " },
@@ -255,10 +259,10 @@ const zh = {
     role: "UI/UX 設計師 · 產品設計師",
     insights: [
       {
-        label: "高效溝通",
+        label: "高效溝通 × 實際數據",
         metric: "2.4×",
         metricNote: "對齊節奏更快",
-        quote: "把複雜問題轉成共同語言，讓產品、設計與工程能同頻推進。",
+        quote: "把複雜問題轉成共同語言，並以實際數據分析佐證，讓產品、設計與工程能同頻推進。",
         bars: [0.35, 0.48, 0.42, 0.58, 0.62, 0.7, 0.78, 0.92],
         tone: "sand" as const,
       },
@@ -302,7 +306,7 @@ const zh = {
   },
   value: {
     eyebrow: "價值",
-    title: "交會處的優勢",
+    title: "我的優勢",
     description: "當人文脈絡、設計工藝與產品執行交疊——作品保持冷靜、清晰且可落地。",
     hint: "移入中心交會區以揭示核心",
     clarity: "清晰",
@@ -325,9 +329,9 @@ const zh = {
       },
       {
         id: "execution" as const,
-        shortLabel: "產品",
-        title: "執行與產品洞察",
-        points: ["從問題到上線的產品思維", "可擴展的工作流優化", "將複雜轉化為清晰體驗"],
+        shortLabel: "商業",
+        title: "執行與商業洞察",
+        points: ["以數據判斷從問題到上線", "商業導向的工作流優化", "把複雜數據轉成清晰產品行動"],
       },
     ],
   },

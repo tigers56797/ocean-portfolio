@@ -289,7 +289,15 @@ export function ExperienceStack({ items }: ExperienceStackProps) {
                 }`}
               >
                 {item.tag ? (
-                  <span className="absolute right-4 top-4 rounded-full border border-[#ddd4c8] bg-[#faf6f0]/95 px-2.5 py-1 text-[0.58rem] font-semibold tracking-[0.12em] text-[#6f6760] md:right-5 md:top-5 md:px-3 md:text-[0.6rem]">
+                  <span
+                    className={`absolute right-4 top-4 rounded-full border px-3 py-1.5 text-[0.68rem] font-semibold tracking-[0.1em] md:right-5 md:top-5 md:px-3.5 md:py-1.5 md:text-[0.72rem] ${
+                      [
+                        "border-[#c5d4e8] bg-[#eef4fb]/95 text-[#3d5a80]",
+                        "border-[#cfe0d4] bg-[#eef6f0]/95 text-[#3d5c3d]",
+                        "border-[#e4d4c4] bg-[#f7f0e8]/95 text-[#7a5c40]",
+                      ][expIndex] ?? "border-[#ddd4c8] bg-[#faf6f0]/95 text-[#6f6760]"
+                    }`}
+                  >
                     {item.tag}
                   </span>
                 ) : null}

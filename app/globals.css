@@ -37,6 +37,11 @@
   padding: 0 0.1em;
 }
 
+/* Per-character highlight — no horizontal padding (avoids forced wrap) */
+.about-quote-highlight--char {
+  padding: 0;
+}
+
 .about-quote-headline {
   position: relative;
   isolation: isolate;
