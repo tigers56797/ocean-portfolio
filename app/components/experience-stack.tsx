@@ -9,6 +9,7 @@ export type ExperienceStackItem = {
   period: string;
   description: string;
   tag?: string;
+  points?: readonly string[];
 };
 
 const SWIPE_THRESHOLD_PX = 72;
@@ -227,7 +228,7 @@ export function ExperienceStack({ items }: ExperienceStackProps) {
       <SwipeCardHint visible={!hasInteracted} />
 
       <div
-        className="relative mx-auto h-[min(70vh,520px)] w-full max-w-[min(100%,920px)] rounded-[2px] outline-none focus-visible:ring-2 focus-visible:ring-[#8b7355]/35 focus-visible:ring-offset-4 focus-visible:ring-offset-[#faf8f4] md:h-[500px]"
+        className="relative mx-auto h-[min(78vh,600px)] w-full max-w-[min(100%,920px)] rounded-[2px] outline-none focus-visible:ring-2 focus-visible:ring-[#8b7355]/35 focus-visible:ring-offset-4 focus-visible:ring-offset-[#faf8f4] md:h-[560px]"
         tabIndex={0}
         onKeyDown={handleKeyDown}
       >
@@ -245,7 +246,7 @@ export function ExperienceStack({ items }: ExperienceStackProps) {
               ref={(node) => {
                 refs.current[key] = node;
               }}
-              className={`absolute left-1/2 top-6 w-[min(100%,360px)] max-w-[92vw] -translate-x-1/2 sm:top-8 sm:w-[min(100%,380px)] md:top-10 md:w-[min(100%,400px)] ${
+              className={`absolute left-1/2 top-6 w-[min(100%,360px)] max-w-[92vw] -translate-x-1/2 sm:top-8 sm:w-[min(100%,380px)] md:top-10 md:w-[min(100%,420px)] ${
                 isFront ? "cursor-grab active:cursor-grabbing" : "cursor-pointer"
               }`}
               initial={false}
@@ -285,7 +286,7 @@ export function ExperienceStack({ items }: ExperienceStackProps) {
             >
               <article
                 className={`relative select-none rounded-2xl border border-[#ebe3d7] bg-[#fffdf8]/95 shadow-[0_18px_52px_-34px_rgba(42,38,34,0.16)] backdrop-blur-sm transition-[border-color,box-shadow] duration-300 ${
-                  isFront ? "p-6 md:p-8" : "p-5 md:p-6 hover:border-[#d4c8b8] hover:shadow-[0_20px_56px_-32px_rgba(42,38,34,0.2)]"
+                  isFront ? "p-5 md:p-6" : "p-5 md:p-6 hover:border-[#d4c8b8] hover:shadow-[0_20px_56px_-32px_rgba(42,38,34,0.2)]"
                 }`}
               >
                 {item.tag ? (
@@ -314,9 +315,24 @@ export function ExperienceStack({ items }: ExperienceStackProps) {
                 <p className="mt-1 text-sm font-medium text-[#5a6d5a]">{item.company}</p>
                 <p className="mt-2 text-xs uppercase tracking-[0.2em] text-[#8a827a]">{item.period}</p>
                 {isFront ? (
-                  <p className="mt-5 max-w-2xl text-sm leading-relaxed text-[#6f6760] md:text-[0.95rem]">
-                    {item.description}
-                  </p>
+                  <div className="mt-4">
+                    <p className="text-sm leading-relaxed text-[#6f6760] md:text-[0.9rem]">
+                      {item.description}
+                    </p>
+                    {item.points?.length ? (
+                      <ul className="mt-3 space-y-1 text-[0.75rem] leading-snug text-[#6f6760] md:text-[0.78rem]">
+                        {item.points.map((point) => (
+                          <li key={point} className="flex gap-2">
+                            <span
+                              className="mt-[0.45em] h-1 w-1 shrink-0 rounded-full bg-[#c4b8aa]"
+                              aria-hidden
+                            />
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+                  </div>
                 ) : (
                   <p className="mt-4 line-clamp-3 text-sm leading-relaxed text-[#6f6760] md:text-[0.9rem]">
                     {item.description}

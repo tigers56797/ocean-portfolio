@@ -42,37 +42,6 @@ const headlineEnterDelay = 0.2;
 /** After headline lines finish (~1s + stagger). */
 const descriptionEnterDelay = 1.32;
 
-const line1Variants = {
-  hidden: { opacity: 0, y: 32 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 1, ease },
-  },
-  hover: {
-    opacity: 1,
-    y: 0,
-    x: -8,
-    transition: { duration: 0.55, ease },
-  },
-} as const;
-
-const line2Variants = {
-  hidden: { opacity: 0, y: 32 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 1, ease, delay: 0.12 },
-  },
-  hover: {
-    opacity: 1,
-    y: -5,
-    x: 10,
-    rotate: 0.7,
-    transition: { duration: 0.55, ease },
-  },
-} as const;
-
 type HeroContentProps = {
   className?: string;
 };
@@ -81,7 +50,7 @@ export function HeroContent({ className }: HeroContentProps) {
   const reduced = useReducedMotion();
   const t = useTranslations();
   const locale = useLocale();
-  const flipWords = messages[locale].hero.flipWords;
+  const flipLines = messages[locale].hero.flipLines;
 
   if (reduced) {
     return (
@@ -98,10 +67,7 @@ export function HeroContent({ className }: HeroContentProps) {
           </p>
         </div>
         <h1 className={headlineClass}>
-          <span className="block text-balance">{t("hero.headline")}</span>
-          <span className="block font-normal italic">
-            <HeroFlipText words={flipWords} />
-          </span>
+          <HeroFlipText lines={flipLines} />
         </h1>
         <p className="mt-10 max-w-2xl text-lg leading-relaxed text-white/88 md:max-w-3xl md:text-xl">
           {t("hero.description")}
@@ -138,12 +104,7 @@ export function HeroContent({ className }: HeroContentProps) {
         transition={{ delay: headlineEnterDelay }}
         whileHover="hover"
       >
-        <motion.span className="block text-balance" variants={line1Variants}>
-          {t("hero.headline")}
-        </motion.span>
-        <motion.span className="block font-normal italic" variants={line2Variants}>
-          <HeroFlipText words={flipWords} />
-        </motion.span>
+        <HeroFlipText lines={flipLines} />
       </motion.h1>
 
       <motion.p

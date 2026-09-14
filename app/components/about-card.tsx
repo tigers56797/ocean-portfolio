@@ -33,7 +33,7 @@ function buildTokens(paragraphs: readonly Paragraph[]): Token[] {
 
 // 打字速度：一般字 35ms，標點稍慢 80ms
 function charDelay(char: string) {
-  return /[，。、！？,.\s]/.test(char) ? 80 : 35;
+  return /[，。、！？,.\s]/.test(char) ? 48 : 18;
 }
 
 function TypewriterCard({ paragraphs, signature, role }: AboutCardProps) {
@@ -93,7 +93,7 @@ function TypewriterCard({ paragraphs, signature, role }: AboutCardProps) {
         transition: { duration: 0.35, ease },
       }}
     >
-      <div className="space-y-6 text-lg leading-[1.75] text-[#4a433c]">
+      <div className="text-lg leading-[1.75] text-[#4a433c]">
         {paragraphs.map((_, pi) => {
           const toks = paraMap.get(pi);
           if (!toks || toks.length === 0) return null;
@@ -113,7 +113,7 @@ function TypewriterCard({ paragraphs, signature, role }: AboutCardProps) {
           const isLastPara = pi === Math.max(...[...paraMap.keys()]);
 
           return (
-            <p key={pi}>
+            <p key={pi} className={pi === 0 ? "" : pi === 1 ? "mt-3" : "mt-6"}>
               {chunks.map((chunk, ci) =>
                 chunk.highlight ? (
                   <span key={ci} className="about-quote-highlight">{chunk.text}</span>
@@ -162,9 +162,9 @@ export function AboutCard({ paragraphs, signature, role }: AboutCardProps) {
   if (reduced) {
     return (
       <div className="space-y-8 rounded-[2rem] border border-[#ebe3d7] bg-[#fffdf8]/70 p-10 shadow-[0_24px_80px_-48px_rgba(42,38,34,0.35)] backdrop-blur-sm md:p-12">
-        <div className="space-y-6 text-lg leading-[1.75] text-[#4a433c]">
+        <div className="text-lg leading-[1.75] text-[#4a433c]">
           {paragraphs.map((paragraph, pi) => (
-            <p key={pi}>
+            <p key={pi} className={pi === 0 ? "" : pi === 1 ? "mt-3" : "mt-6"}>
               {paragraph.map((part, ki) =>
                 part.highlight ? (
                   <span key={ki} className="about-quote-highlight">{part.text}</span>
