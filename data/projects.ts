@@ -46,6 +46,8 @@ export type Project = {
   heroLayout?: "default" | "product";
   /** Right-side visual for product hero (e.g. phone mockups). */
   heroVisual?: string;
+  /** Multiple right-side visuals for product hero (e.g. overlapping phones). */
+  heroVisuals?: string[];
   /** Large product headline; falls back to `title` when omitted. */
   heroHeadline?: string;
   /** Small version / status pill next to the product name. */
@@ -695,6 +697,95 @@ export const projects: Project[] = [
         caption: "good stock",
       },
     ],
+  },
+  {
+    slug: "moss",
+    meta: "Fan & Ticket Management",
+    title: "Moss",
+    description:
+      "A fan and ticket management system for collecting memories, tickets, and support moments into one personal fan-life record.",
+    tag: "EXPLORING",
+    tagStyle: "bg-[#eee8f8] text-[#5a4a7a]",
+    frame: "from-[#f4f0fa] via-[#ebe4f4] to-[#e2dae8]",
+    cardImage: "/images/mosscover.jpg",
+    heroLayout: "product",
+    heroVisuals: [
+      "/images/mosstransparent1.png",
+      "/images/mosstransparent2.png",
+    ],
+    heroAlt: "Moss — fan and ticket management",
+    heroHeadline: "Every passion\ndeserves keeping.",
+    heroBadge: "Coming soon",
+    heroSupportNote: "Fan life · tickets · memories · support",
+    galleryViews: [
+      {
+        id: "ux",
+        label: "UX",
+        blocks: [
+          {
+            type: "image",
+            src: "/images/mo01.png",
+            alt: "Moss — UX 01",
+            caption: "Moss",
+          },
+          {
+            type: "image",
+            src: "/images/mo02.png",
+            alt: "Moss — UX 02",
+            caption: "Moss",
+          },
+          {
+            type: "image",
+            src: "/images/mo03.png",
+            alt: "Moss — UX 03",
+            caption: "Moss",
+          },
+          {
+            type: "image",
+            src: "/images/mo04.png",
+            alt: "Moss — UX 04",
+            caption: "Moss",
+          },
+          {
+            type: "image",
+            src: "/images/mo05.png",
+            alt: "Moss — UX 05",
+            caption: "Moss",
+          },
+          {
+            type: "image",
+            src: "/images/mo06.png",
+            alt: "Moss — UX 06",
+            caption: "Moss",
+          },
+          {
+            type: "image",
+            src: "/images/mo07.png",
+            alt: "Moss — UX 07",
+            caption: "Moss",
+          },
+          {
+            type: "image",
+            src: "/images/mo08.png",
+            alt: "Moss — UX 08",
+            caption: "Moss",
+          },
+        ],
+      },
+      {
+        id: "ui",
+        label: "UI",
+        blocks: [
+          {
+            type: "image",
+            src: "/images/mo001.png",
+            alt: "Moss — UI 001",
+            caption: "Moss",
+          },
+        ],
+      },
+    ],
+    content: [],
   },
 ];
 

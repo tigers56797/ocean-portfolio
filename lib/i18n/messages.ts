@@ -210,7 +210,7 @@ const en = {
   },
   projects: {
     allEyebrow: "All Projects",
-    allTitle: "Designing operational clarity",
+    allTitle: "Project Portfolio",
     allDescription:
       "The full set of product and interface work—operational systems, consumer apps, enterprise experiences, and client-facing digital products.",
     viewProject: "View Project",
@@ -423,7 +423,7 @@ const zh = {
   },
   projects: {
     allEyebrow: "全部作品",
-    allTitle: "設計營運清晰度",
+    allTitle: "專案作品集",
     allDescription:
       "完整的產品與介面作品——營運系統、消費者 App、企業體驗與客戶端數位產品。",
     viewProject: "查看專案",

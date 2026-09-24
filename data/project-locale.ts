@@ -61,6 +61,15 @@ const zhProjects: Record<string, ProjectLocaleFields> = {
     description: "準備中…",
     tag: "探索中",
   },
+  moss: {
+    meta: "粉絲與票券管理",
+    title: "Moss",
+    description: "粉絲與票券管理系統，用來收藏回憶、票券與應援時刻，成為你的專屬粉絲人生紀錄本。",
+    tag: "探索中",
+    heroHeadline: "每一份熱愛\n都值得被好好珍藏",
+    heroBadge: "即將推出",
+    heroSupportNote: "粉絲人生 · 票券 · 回憶 · 應援",
+  },
 };
 
 export function localizeProject(project: Project, locale: Locale): Project {

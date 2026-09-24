@@ -1941,9 +1941,47 @@ body {
   }
 }
 
+@keyframes product-hero-moss-float-back {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-6deg);
+  }
+  50% {
+    transform: translate3d(-2px, -8px, 0) rotate(-5deg);
+  }
+}
+
+@keyframes product-hero-moss-float-front {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(5deg);
+  }
+  50% {
+    transform: translate3d(3px, -10px, 0) rotate(6deg);
+  }
+}
+
 .product-hero-float {
   animation: product-hero-float 5.5s ease-in-out infinite;
   will-change: transform;
+}
+
+.product-hero-moss-stage {
+  overflow: visible;
+}
+
+.product-hero-moss-phone {
+  will-change: transform;
+  transform-origin: center center;
+}
+
+.product-hero-moss-phone--back {
+  animation: product-hero-moss-float-back 6.2s ease-in-out infinite;
+}
+
+.product-hero-moss-phone--front {
+  animation: product-hero-moss-float-front 5.4s ease-in-out infinite;
+  animation-delay: -1.4s;
 }
 
 .product-hero-mascot {
@@ -2033,10 +2071,20 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .product-hero-float,
+  .product-hero-moss-phone--back,
+  .product-hero-moss-phone--front,
   .product-hero-mascot,
   .product-hero-mascot--flower,
   .product-hero-mascot--branch {
     animation: none;
+  }
+
+  .product-hero-moss-phone--back {
+    transform: rotate(-6deg);
+  }
+
+  .product-hero-moss-phone--front {
+    transform: rotate(5deg);
   }
 
   .product-hero-shimmer-text {
