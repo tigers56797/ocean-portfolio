@@ -166,16 +166,734 @@ body {
   text-wrap: balance;
 }
 
-/* Hero only: cerulean sky → pale blue / near-white */
 .hero-sky {
+  background-color: #d5e9f7;
+}
+
+/*
+ * Hero glass ocean — layered backdrop.
+ * Every layer is anchored to --water (the horizon line). Hero copy is
+ * vertically centred and its bottom edge sits ~194px below the centre, so the
+ * horizon is pinned just under the description.
+ * Plate offsets come from the source crops: the whale's surface sits 9.35% of
+ * its width from the top, the iceberg's 60.09%.
+ */
+.hero-ocean {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  isolation: isolate;
+  container-type: size;
+
+  --water: min(calc(50% + 214px), 88%);
+  --whale-w: min(55cqw, max(30rem, calc(165cqh - 580px)));
+  --whale-x: -1cqw;
+  --ice-w: min(30cqw, 56cqh);
+  --ice-x: -1.5cqw;
+  --swim-k: 1;
+  --swim-lag: 0.3s;
+}
+
+.hero-ocean__sky {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 42% 60% at 0% 6%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 72%),
+    radial-gradient(ellipse 30% 40% at 88% 58%, rgba(236, 248, 246, 0.35), rgba(236, 248, 246, 0) 70%),
+    linear-gradient(
+      180deg,
+      #afd1ed 0%,
+      #c3def3 calc(var(--water) * 0.5),
+      #d5e9f7 calc(var(--water) * 0.85),
+      #e3f0fa var(--water)
+    );
+}
+
+/* Starts just under the swell strip, which draws the moving top edge of the water. */
+.hero-ocean__water {
+  position: absolute;
+  inset: calc(var(--water) + 4px) 0 0 0;
+  overflow: hidden;
   background: linear-gradient(
     180deg,
-    #2f7fbf 0%,
-    #4298d4 22%,
-    #7eb8e8 52%,
-    #c9e4f5 82%,
-    #f2f8fd 100%
+    #a8d1ed 0%,
+    #b6d9f0 35%,
+    #d0e8f6 68%,
+    #eef6fb 90%,
+    #fffdf8 100%
   );
+}
+
+/*
+ * Low sunset glow on the horizon behind the iceberg, breathing slowly: the
+ * halo and its hotter core swell on unrelated periods, and the reflection in
+ * the water follows a beat later.
+ */
+.hero-ocean__sun,
+.hero-ocean__sun-glint {
+  position: absolute;
+  left: 82%;
+  transform: translate(-50%, -50%);
+  animation: hero-sun-breathe 9s ease-in-out infinite;
+}
+
+/* Peach fading through a faint rose into the sky blue, the way a real dusk sky blends. */
+.hero-ocean__sun {
+  top: var(--water);
+  width: 68%;
+  height: 60%;
+  background: radial-gradient(
+    closest-side,
+    rgba(255, 216, 186, 0.42),
+    rgba(255, 226, 206, 0.26) 30%,
+    rgba(246, 224, 234, 0.14) 55%,
+    rgba(236, 228, 244, 0) 80%
+  );
+}
+
+/* Outer aura: very wide and faint, breathing on its own slower rhythm. */
+.hero-ocean__sun::before {
+  content: "";
+  position: absolute;
+  inset: -22% -18%;
+  background: radial-gradient(
+    closest-side,
+    rgba(255, 230, 212, 0.2),
+    rgba(244, 228, 238, 0.1) 50%,
+    rgba(236, 232, 246, 0) 85%
+  );
+  animation: hero-sun-aura 13s ease-in-out -5s infinite;
+}
+
+.hero-ocean__sun::after {
+  content: "";
+  position: absolute;
+  inset: 32% 34%;
+  background: radial-gradient(closest-side, rgba(255, 212, 180, 0.3), rgba(255, 222, 198, 0) 100%);
+  animation: hero-sun-core 6.5s ease-in-out -2s infinite;
+}
+
+.hero-ocean__sun-glint {
+  top: 0;
+  width: 52%;
+  height: 44%;
+  background: radial-gradient(closest-side, rgba(255, 222, 198, 0.24), rgba(250, 226, 230, 0.08) 50%, transparent 75%);
+  animation-delay: -8.2s;
+}
+
+.hero-ocean__motes {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: var(--water);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+
+.hero-ocean__mote {
+  position: absolute;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  opacity: var(--a);
+  background: radial-gradient(circle, #fff, rgba(255, 255, 255, 0.55) 45%, rgba(255, 255, 255, 0) 72%);
+  box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.55);
+  animation-name: hero-mote-drift, hero-mote-bob, hero-mote-twinkle;
+  animation-timing-function: linear, ease-in-out, ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: normal, alternate, alternate;
+}
+
+.hero-ocean__rays {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(104deg, transparent 18%, rgba(255, 255, 255, 0.22) 23%, transparent 28%),
+    linear-gradient(98deg, transparent 42%, rgba(255, 255, 255, 0.16) 46%, transparent 50%),
+    linear-gradient(110deg, transparent 60%, rgba(236, 250, 245, 0.16) 64%, transparent 68%);
+  filter: blur(8px);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 80%);
+  mask-image: linear-gradient(180deg, #000 0%, transparent 80%);
+  animation: hero-ocean-rays 11s ease-in-out infinite;
+}
+
+.hero-ocean__particles {
+  position: absolute;
+  inset: 0;
+  opacity: 0.7;
+  background-image:
+    radial-gradient(circle at 9% 34%, rgba(255, 255, 255, 0.85) 0 1px, transparent 2px),
+    radial-gradient(circle at 22% 62%, rgba(255, 255, 255, 0.7) 0 1px, transparent 2px),
+    radial-gradient(circle at 37% 22%, rgba(255, 255, 255, 0.75) 0 1.2px, transparent 2.2px),
+    radial-gradient(circle at 48% 48%, rgba(255, 255, 255, 0.6) 0 1px, transparent 2px),
+    radial-gradient(circle at 58% 18%, rgba(255, 255, 255, 0.8) 0 1px, transparent 2px),
+    radial-gradient(circle at 64% 70%, rgba(255, 255, 255, 0.55) 0 1px, transparent 2px),
+    radial-gradient(circle at 71% 40%, rgba(255, 255, 255, 0.7) 0 1.2px, transparent 2.2px),
+    radial-gradient(circle at 96% 28%, rgba(255, 255, 255, 0.65) 0 1px, transparent 2px);
+}
+
+.hero-ocean__whale,
+.hero-ocean__iceberg {
+  position: absolute;
+}
+
+.hero-ocean__whale {
+  left: var(--whale-x);
+  top: calc(var(--water) - var(--whale-w) * 0.0935);
+  width: var(--whale-w);
+  aspect-ratio: 840 / 400;
+}
+
+.hero-ocean__iceberg {
+  right: var(--ice-x);
+  top: calc(var(--water) - var(--ice-w) * 0.6009);
+  width: var(--ice-w);
+  aspect-ratio: 530 / 640;
+}
+
+.hero-ocean__plate--screen {
+  mix-blend-mode: screen;
+}
+
+.hero-ocean__plate--multiply {
+  mix-blend-mode: multiply;
+}
+
+/*
+ * Whale plates carry the blend mode themselves: the fade / breach events
+ * (transform / opacity / filter, driven from JS) run on each plate, and the
+ * swimming runs on the body segments inside it. Never put transform,
+ * opacity, filter or will-change on .hero-ocean__whale — that isolates the
+ * plates and the glass renders as a dark box.
+ */
+.hero-ocean__whale-plate {
+  position: absolute;
+  inset: 0;
+  opacity: 0.86;
+  transform-origin: 90% 22%;
+  will-change: transform, opacity, filter;
+  /* Hide the artwork's own water band above the surface (19.6%), except at the head. */
+  -webkit-mask-image:
+    linear-gradient(180deg, transparent 13%, #000 20%),
+    linear-gradient(90deg, transparent 80%, #000 87%);
+  mask-image:
+    linear-gradient(180deg, transparent 13%, #000 20%),
+    linear-gradient(90deg, transparent 80%, #000 87%);
+  -webkit-mask-composite: source-over;
+  mask-composite: add;
+}
+
+/*
+ * The event glow lives here rather than in a plate brightness boost, and only
+ * over the head and back: brightening the whole plate lifts the soft haze
+ * baked around the tail into a visible box.
+ */
+.hero-ocean__whale-halo {
+  mix-blend-mode: screen;
+  opacity: 0;
+  filter: blur(6px) brightness(1.25);
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 38%, #000 62%),
+    linear-gradient(180deg, transparent 13%, #000 20%),
+    linear-gradient(90deg, transparent 80%, #000 87%);
+  mask-image:
+    linear-gradient(90deg, transparent 38%, #000 62%),
+    linear-gradient(180deg, transparent 13%, #000 20%),
+    linear-gradient(90deg, transparent 80%, #000 87%);
+  -webkit-mask-composite: source-in, source-over;
+  mask-composite: intersect, add;
+}
+
+/*
+ * Each plate is cut into body, tail stock and flukes. The masks are exact
+ * complements, and plus-lighter adds the pieces back into the untouched
+ * artwork, so the joints only show once the tail bends (the fluke beat is
+ * driven from JS). Joints: stock at (45%, 46%) behind the dorsal fin, flukes
+ * at (28%, 34%); the radial term keeps the far fluke lobe with the flukes.
+ *
+ * Slow drift, pitch and breath run on the individual transform properties
+ * with unrelated periods (randomised from JS) so their peaks rarely line up.
+ */
+.hero-ocean__seg {
+  position: absolute;
+  inset: 0;
+  transform-origin: 88% 26%;
+  mix-blend-mode: plus-lighter;
+  animation:
+    hero-whale-drift var(--swim-drift, 14s) ease-in-out infinite,
+    hero-whale-pitch var(--swim-pitch, 11s) ease-in-out infinite,
+    hero-whale-breath var(--swim-breath, 15s) ease-in-out infinite;
+}
+
+.hero-ocean__plate--screen > .hero-ocean__seg,
+.hero-ocean__whale-halo > .hero-ocean__seg {
+  animation-delay: calc(-1 * var(--swim-lag));
+}
+
+.hero-ocean__seg--front {
+  -webkit-mask-image: linear-gradient(128.5deg, transparent 43.8%, #000 46.8%);
+  mask-image: linear-gradient(128.5deg, transparent 43.8%, #000 46.8%);
+}
+
+.hero-ocean__seg--mid {
+  -webkit-mask-image:
+    radial-gradient(7% 5.5% at 32.5% 29.5%, transparent 70%, #000),
+    linear-gradient(90deg, transparent 26.5%, #000 29.5%),
+    linear-gradient(128.5deg, #000 43.8%, transparent 46.8%);
+  mask-image:
+    radial-gradient(7% 5.5% at 32.5% 29.5%, transparent 70%, #000),
+    linear-gradient(90deg, transparent 26.5%, #000 29.5%),
+    linear-gradient(128.5deg, #000 43.8%, transparent 46.8%);
+  -webkit-mask-composite: source-in, source-in;
+  mask-composite: intersect, intersect;
+}
+
+.hero-ocean__seg--fluke {
+  -webkit-mask-image:
+    radial-gradient(7% 5.5% at 32.5% 29.5%, #000 70%, transparent),
+    linear-gradient(90deg, #000 26.5%, transparent 29.5%);
+  mask-image:
+    radial-gradient(7% 5.5% at 32.5% 29.5%, #000 70%, transparent),
+    linear-gradient(90deg, #000 26.5%, transparent 29.5%);
+  -webkit-mask-composite: source-over;
+  mask-composite: add;
+}
+
+.hero-ocean__iceberg .hero-ocean__plate {
+  animation: hero-ocean-iceberg 12s ease-in-out infinite;
+}
+
+/*
+ * Waterline: a low swell rolls along the line (±4px around the fixed water
+ * level) and the whole crest rises and settles slowly. The swell strip sits
+ * under the whale and paints the water's top edge; the crest line above it
+ * runs the same animation so the two stay locked together. Each track is
+ * several tiles wide and moves by exactly one tile, so the loop is seamless
+ * and only compositing work runs per frame.
+ */
+.hero-ocean__swell,
+.hero-ocean__surface {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--water) - 8px);
+  height: 16px;
+  overflow: hidden;
+}
+
+.hero-ocean__surface {
+  opacity: 0.85;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.hero-ocean__wave-track {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+}
+
+.hero-ocean__wave-track--crest {
+  animation:
+    hero-crest-flow 38s linear infinite,
+    hero-crest-swell 8.5s ease-in-out infinite;
+}
+
+.hero-ocean__wave-track--cross {
+  left: -800px;
+  animation:
+    hero-cross-flow 27s linear infinite,
+    hero-crest-swell 11s ease-in-out -3s infinite;
+}
+
+.hero-ocean__swell-fill {
+  fill: #a8d1ed;
+}
+
+.hero-ocean__crest,
+.hero-ocean__crest-glow {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.hero-ocean__crest {
+  stroke: rgba(255, 255, 255, 0.95);
+  stroke-width: 1.6;
+}
+
+.hero-ocean__crest-glow {
+  stroke: rgba(255, 255, 255, 0.75);
+  stroke-width: 4;
+}
+
+.hero-ocean__crest--cross {
+  stroke: rgba(255, 255, 255, 0.4);
+  stroke-width: 1;
+}
+
+/* Glints drifting in opposite directions just under the line. */
+.hero-ocean__waves {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--water) - 3px);
+  height: 26px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.hero-ocean__wave {
+  position: absolute;
+  inset: 0 -480px;
+  background-repeat: repeat-x;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 12%, #000 40%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 12%, #000 40%, transparent);
+}
+
+.hero-ocean__wave--back {
+  opacity: 0.3;
+  background-image:
+    radial-gradient(70px 2px at 50px 8px, rgba(255, 255, 255, 0.95), transparent),
+    radial-gradient(110px 2.5px at 190px 13px, rgba(255, 255, 255, 0.75), transparent),
+    radial-gradient(50px 1.5px at 280px 19px, rgba(236, 250, 246, 0.8), transparent),
+    linear-gradient(180deg, rgba(255, 255, 255, 0) 3px, rgba(255, 255, 255, 0.35) 6px, rgba(255, 255, 255, 0) 16px);
+  background-size: 320px 100%;
+  animation:
+    hero-wave-flow-back 18s linear infinite,
+    hero-wave-stretch 21s ease-in-out infinite;
+}
+
+.hero-ocean__wave--front {
+  opacity: 0.42;
+  background-image:
+    radial-gradient(44px 1.5px at 30px 5px, rgba(255, 255, 255, 1), transparent),
+    radial-gradient(80px 1.8px at 130px 9px, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(28px 1.2px at 200px 14px, rgba(255, 255, 255, 0.7), transparent);
+  background-size: 230px 100%;
+  animation:
+    hero-wave-flow-front 12s linear infinite,
+    hero-wave-bob 7.5s ease-in-out infinite;
+}
+
+/* Breach impact: glow, expanding rings, droplets and a bubble trail, all placed from JS. */
+.hero-ocean__impact {
+  position: absolute;
+  left: 0;
+  top: var(--water);
+  width: 0;
+  height: 0;
+}
+
+.hero-ocean__impact > span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  border-radius: 50%;
+}
+
+.hero-ocean__ripple {
+  width: calc(170px * var(--swim-k));
+  height: calc(38px * var(--swim-k));
+  background:
+    radial-gradient(closest-side, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.35) 30%, transparent 55%),
+    radial-gradient(closest-side, transparent 64%, rgba(255, 255, 255, 0.7) 72%, transparent 80%),
+    radial-gradient(closest-side, transparent 86%, rgba(255, 255, 255, 0.45) 92%, transparent 98%);
+}
+
+.hero-ocean__ring {
+  width: calc(150px * var(--swim-k));
+  height: calc(20px * var(--swim-k));
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.45);
+}
+
+.hero-ocean__drop {
+  width: 3px;
+  height: 3px;
+  background: #fff;
+  box-shadow: 0 0 5px 1px rgba(255, 255, 255, 0.75);
+}
+
+.hero-ocean__trail {
+  width: calc(7px * var(--swim-k) + 2px);
+  height: calc(7px * var(--swim-k) + 2px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.08) 60%);
+}
+
+.hero-ocean__mist {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 11%;
+  background: linear-gradient(180deg, rgba(255, 253, 248, 0) 0%, rgba(255, 253, 248, 0.8) 55%, #fffdf8 100%);
+}
+
+@keyframes hero-whale-drift {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  24% {
+    translate: calc(5px * var(--swim-k)) calc(-3px * var(--swim-k));
+  }
+  50% {
+    translate: calc(13px * var(--swim-k)) calc(-6px * var(--swim-k));
+  }
+  71% {
+    translate: calc(9px * var(--swim-k)) calc(-1px * var(--swim-k));
+  }
+  87% {
+    translate: calc(3px * var(--swim-k)) calc(2px * var(--swim-k));
+  }
+}
+
+@keyframes hero-whale-pitch {
+  0%,
+  100% {
+    rotate: 0.15deg;
+  }
+  32% {
+    rotate: -0.45deg;
+  }
+  56% {
+    rotate: -0.15deg;
+  }
+  80% {
+    rotate: 0.4deg;
+  }
+}
+
+@keyframes hero-sun-breathe {
+  0%,
+  100% {
+    opacity: 0.72;
+    scale: 0.95;
+  }
+  38% {
+    opacity: 1;
+    scale: 1.06;
+  }
+  62% {
+    opacity: 0.9;
+    scale: 1.02;
+  }
+  82% {
+    opacity: 0.78;
+    scale: 0.97;
+  }
+}
+
+@keyframes hero-mote-drift {
+  from {
+    transform: translate3d(calc(-1cqw * var(--x) - 4cqw), 0, 0);
+  }
+  to {
+    transform: translate3d(calc(104cqw - 1cqw * var(--x)), 0, 0);
+  }
+}
+
+@keyframes hero-mote-bob {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 var(--bob);
+  }
+}
+
+@keyframes hero-mote-twinkle {
+  from {
+    opacity: calc(var(--a) * 0.4);
+  }
+  to {
+    opacity: var(--a);
+  }
+}
+
+@keyframes hero-sun-aura {
+  0%,
+  100% {
+    opacity: 0.45;
+    scale: 0.92;
+  }
+  40% {
+    opacity: 1;
+    scale: 1.12;
+  }
+  70% {
+    opacity: 0.75;
+    scale: 1.04;
+  }
+}
+
+@keyframes hero-sun-core {
+  0%,
+  100% {
+    opacity: 0.5;
+    scale: 0.9;
+  }
+  45% {
+    opacity: 1;
+    scale: 1.12;
+  }
+}
+
+@keyframes hero-crest-flow {
+  to {
+    transform: translate3d(-1200px, 0, 0);
+  }
+}
+
+@keyframes hero-cross-flow {
+  to {
+    transform: translate3d(800px, 0, 0);
+  }
+}
+
+@keyframes hero-crest-swell {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  30% {
+    translate: 0 -2px;
+  }
+  62% {
+    translate: 0 1.5px;
+  }
+  82% {
+    translate: 0 -0.5px;
+  }
+}
+
+@keyframes hero-whale-breath {
+  0%,
+  100% {
+    scale: 1;
+  }
+  38% {
+    scale: 1.008;
+  }
+  74% {
+    scale: 0.996;
+  }
+}
+
+@keyframes hero-wave-flow-back {
+  to {
+    transform: translate3d(320px, 0, 0);
+  }
+}
+
+@keyframes hero-wave-flow-front {
+  to {
+    transform: translate3d(-230px, 0, 0);
+  }
+}
+
+@keyframes hero-wave-stretch {
+  0%,
+  100% {
+    scale: 1.02 1;
+  }
+  50% {
+    scale: 1.05 1;
+  }
+}
+
+@keyframes hero-wave-bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  45% {
+    translate: 0 2px;
+  }
+  75% {
+    translate: 0 1px;
+  }
+}
+
+@keyframes hero-ocean-iceberg {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -0.35cqh, 0);
+  }
+}
+
+@keyframes hero-ocean-rays {
+  0%,
+  100% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.hero-ocean[data-paused] *,
+.hero-ocean[data-paused] *::before,
+.hero-ocean[data-paused] *::after {
+  animation-play-state: paused;
+}
+
+@media (max-width: 1023px) {
+  .hero-ocean {
+    --swim-k: 0.78;
+    --whale-w: min(78cqw, 70cqh);
+    --ice-w: min(34cqw, 40cqh);
+    --ice-x: -2cqw;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-ocean {
+    --swim-k: 0.5;
+    --water: min(calc(50% + 220px), 88%);
+    --whale-w: min(86cqw, 60cqh);
+    --whale-x: -6cqw;
+    --ice-w: min(28cqw, 30cqh);
+    --ice-x: -8cqw;
+  }
+
+  .hero-ocean__particles {
+    opacity: 0.45;
+  }
+
+  .hero-ocean__mote:nth-child(2n) {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-ocean__plate,
+  .hero-ocean__iceberg .hero-ocean__plate,
+  .hero-ocean__seg,
+  .hero-ocean__mote,
+  .hero-ocean__sun,
+  .hero-ocean__sun::before,
+  .hero-ocean__sun::after,
+  .hero-ocean__sun-glint,
+  .hero-ocean__rays,
+  .hero-ocean__wave,
+  .hero-ocean__wave-track--crest,
+  .hero-ocean__wave-track--cross {
+    animation: none;
+  }
+
+  .hero-ocean__impact {
+    display: none;
+  }
 }
 
 /* Hero bubbles — keep it cheap: transform + opacity only */

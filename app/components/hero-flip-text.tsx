@@ -36,11 +36,7 @@ const line2Variants = {
   },
 } as const;
 
-const FLIP_COLORS = [
-  "rgba(255, 238, 168, 0.84)",
-  "rgba(158, 228, 162, 0.84)",
-  "#D8F0D0",
-] as const;
+const FLIP_COLOR = "#FFE17A";
 
 const DISPLAY_MS = 2500;
 const TRANSITION_MS = 600;
@@ -84,10 +80,12 @@ function FlipWord({
   word,
   color,
   sizer,
+  align = "center",
 }: {
   word: string;
   color: string;
   sizer: string;
+  align?: "center" | "left" | "right";
 }) {
   return (
     <span
@@ -102,7 +100,9 @@ function FlipWord({
         <AnimatePresence initial={false}>
           <motion.span
             key={word}
-            className="absolute inset-x-0 bottom-0 block whitespace-nowrap will-change-[transform,opacity,filter]"
+            className={`absolute inset-x-0 bottom-0 block whitespace-nowrap will-change-[transform,opacity,filter] ${
+              align === "left" ? "text-left" : align === "right" ? "text-right" : ""
+            }`}
             style={{ color }}
             variants={flipVariants}
             initial="enter"
@@ -122,14 +122,7 @@ export function HeroFlipText({ className, lines }: HeroFlipTextProps) {
   const reduced = useReducedMotion();
   const [index, setIndex] = useState(0);
 
-  const flipItems = useMemo(
-    () =>
-      lines.map((line, i) => ({
-        ...line,
-        color: FLIP_COLORS[i % FLIP_COLORS.length],
-      })),
-    [lines],
-  );
+  const flipItems = lines;
 
   const longestLead = useMemo(
     () => lines.reduce((a, b) => (a.lead.length >= b.lead.length ? a : b)).lead,
@@ -164,7 +157,7 @@ export function HeroFlipText({ className, lines }: HeroFlipTextProps) {
         <span className="block text-balance">{first.lead}</span>
         <span className="block font-normal italic">
           <span className="text-[#e8f4ff]/95">{first.into} </span>
-          <span style={{ color: first.color }}>{first.word}</span>
+          <span style={{ color: FLIP_COLOR }}>{first.word}</span>
         </span>
       </>
     );
@@ -176,9 +169,14 @@ export function HeroFlipText({ className, lines }: HeroFlipTextProps) {
         <FlipWord word={current.lead} color="inherit" sizer={longestLead} />
       </motion.span>
       <motion.span className="block font-normal italic" variants={line2Variants}>
-        <span className="inline-flex items-baseline gap-[0.2em]">
-          <FlipWord word={current.into} color="rgba(232, 244, 255, 0.95)" sizer={longestInto} />
-          <FlipWord word={current.word} color={current.color} sizer={longestWord} />
+        <span className="inline-flex items-baseline gap-[0.2em] [&:lang(zh)]:gap-[0.08em]">
+          <FlipWord
+            word={current.into}
+            color="rgba(232, 244, 255, 0.95)"
+            sizer={longestInto}
+            align="right"
+          />
+          <FlipWord word={current.word} color={FLIP_COLOR} sizer={longestWord} align="left" />
         </span>
       </motion.span>
     </>

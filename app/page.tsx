@@ -9,9 +9,9 @@ import { ExperienceSection } from "./components/experience-section";
 import { ManifestoSection } from "./components/manifesto-section";
 import { ValueSection } from "./components/value-section";
 import { FocusPillarCards } from "./components/focus-pillar-cards";
-import { FlyingBirds } from "./components/flying-birds";
 import { HeroBubbles } from "./components/hero-bubbles";
 import { HeroContent } from "./components/hero-content";
+import { HeroOceanBackdrop } from "./components/hero-ocean-backdrop";
 import { HeroScrollCue } from "./components/hero-scroll-cue";
 import { PhotoStack } from "./components/photo-stack";
 import { ProjectCard } from "./components/project-card";
@@ -44,8 +44,8 @@ export default async function Home() {
 
       <main className="relative z-10 flex flex-1 flex-col overflow-x-clip">
         <section className={`relative hero-sky flex min-h-[92vh] flex-col justify-center overflow-x-clip pb-28 pt-36 md:pb-32 ${sectionX}`}>
+          <HeroOceanBackdrop />
           <HeroBubbles />
-          <FlyingBirds />
           <HeroContent className={`relative flex flex-col items-center text-center ${heroInner}`} />
           <HeroScrollCue />
         </section>
